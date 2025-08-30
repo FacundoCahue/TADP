@@ -22,7 +22,8 @@ No sucede en RUNTIME y cuando se ejecuta simplemente se "Aplana", copiando los m
 * No  hay **super** ya qeu no existe el siguiente como el mixin ya que esta aplanado
 _ _ _ 
 ### Confilcto 
-El caso del rompo (rombo.puml) 
+##El caso del rompo 
+![](Rombo.png)
 
 
 ## Presencia en Tecnologías
@@ -40,3 +41,5 @@ _ _ _
 #### Patrones
   * Decorator Pattern -> No sirve para mixins
   * Cake Pattern -> Sirve para mixins y es el que usa la Unidad (es el que terminamos utilizando)
+
+![](SolucionEjercicio.png)

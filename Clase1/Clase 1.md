@@ -36,4 +36,4 @@ Segunda parte del codigo
 
 
 (Problema y con solucion MUY CROTA)
-Tecer caso cuando tenes una clase mas que es misil en este caso tendriamso Muralla (que solo defiende) que hereda de defesonr misil (que solo ataca) y guerrero que (hereda de defensor y de atacante) pero esto no se puede (Ya que no admite herencia multiples el paradigma de objeto) la mejor forma de resolver esto es copiando y pegando. Me explico misil y guerrero hereda de atacante y copia y pega los metodos de defensor y por otro lado la muralla simplemente hereda de denfensor 
+Tercer caso cuando tenes una clase mas que es misil en este caso tendriamso Muralla (que solo defiende) que hereda de defesonr misil (que solo ataca) y guerrero que (hereda de defensor y de atacante) pero esto no se puede (Ya que no admite herencia multiples el paradigma de objeto) la mejor forma de resolver esto es copiando y pegando. Me explico misil y guerrero hereda de atacante y copia y pega los metodos de defensor y por otro lado la muralla simplemente hereda de denfensor 

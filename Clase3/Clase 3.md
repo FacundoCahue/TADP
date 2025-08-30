@@ -37,13 +37,12 @@ Utilizaremos la consola `pry`.
 |`unObjeto = Clase.new`| Instanciar un objeto |-|
 |`class B < A end`| Crear clase B y heredarla de A |-|
 |`unObjeto.methods`| Llama a un método |-|
-|`unaClase.singleton_class`| Permite obtener la eigenclass de unaClase, *metaclass* **el objeto unaClase** | Puede servir para ver los métodos de clase, no de instancia|
 |`unObjeto.methods.include? :method`| Dice si los métodos incluyen un método |-|
 |`unObjeto.unMetodo`| Llama al método y muestra el valor de retorno|-|
 |`unaClase.instance_methods(Boolean)`| Muestra los métodos que implementa la clase y su superclase |`instance_methods(false)` no incluye a la superclase, viene defoult true|
 |`unaClase.instance_method :unMetodo`| Devuelve un método de esa clase no bindeado a ningún objeto |-|
 |`unMetodoNoBindeado.bind(unObjeto)`| Bindea un método no bindeado a un objeto |No se puede bindear un método a un objeto de una clase que no tenga ese método.|
-|`unObjeto.send(:unMetodo)`| Llama al método y muestra el valor de retorno | Manda un mensaje explícitamente, más tipo **introspection**. Permite llamar a métodos privados. y en momento de ejecucion podes cambiarlo a comparacion de hacer el `unObjeto.unMetodo` pudiendo recibir por un parametro el `unMetodo` guardado como unba variable y enviarlo por send |
+|`unObjeto.send(:unMetodo)`| Llama al método y muestra el valor de retorno | Manda un mensaje explícitamente, más tipo **introspection**. Permite llamar a métodos privados. y en momento de ejecucion podes cambiarlo a comparacion de hacer el `unObjeto.unMetodo` pudiendo recibir por un parametro el `unMetodo` guardado como una variable y enviarlo por send |
 |`unObjeto.method(:unMetodo)`| Devuelve una instancia de method| Un método bindeado a la instancia. Lo puedo guardar |`variable = unObjeto.method(:unMetodo)`|
 |`unMetodo.call`|  Llama a un método bindeado a una instancia |-|
 |`unMetodo.parameters`| Dice todos los metodos de ese objeto| Los muestra como una lista de tuplas `[[:req, :un_danio]]`, el primero nos dice qué tipo de parametro es y el otro el nombre. |
@@ -51,6 +50,7 @@ Utilizaremos la consola `pry`.
 |`unObjeto.method(:unMetodo).receiver`| Devuelve a quién está bindeado un método |-|
 |`unMetodoNoBindeado.owner`| Dice la clase a la que pertenece el metodo, **quien implementó el método** |-|
 | `unObjeto.define_method('nombre') {codigo}`| Metodo para definir metodos en tiempo de ejecucion| -|
+|`unaClase.singleton_class`| Permite obtener la eigenclass de unaClase, *metaclass* **el objeto unaClase** | Puede servir para ver los métodos de clase, no de instancia|
 ---
 #### Variables de Instancia
 |Comando|Funcionalidad|Detalles|
@@ -95,6 +95,7 @@ Y este comportamiento **es retroactivo**, el objeto no tiene el comportamiento, 
 
 - #### Duck typing
 Por la naturaleza de Ruby de ser dinámicamente tipado, se hace referencia a un tipo de dato no por el tipo en sí sino por el comportamiento que tiene. 
+*si camina como pato y habla como un pato, es un pato*
 
 - #### Monkey patching
 Posibilidad de modificar un tipo, una clase o un objeto para que satisfazga las necesidades que se tienen.
@@ -102,19 +103,20 @@ Posibilidad de modificar un tipo, una clase o un objeto para que satisfazga las 
 ## Metamodelo en Ruby
 Siguiendo el ejemplo de Guerreros, el árbol quedaría de esta manera:
 
-#### Metodo Ducapt (O como se escriba)
+
+#### Metodo lookup
 - Es 1 paso azul N pasos rojos (Caso de java)
     - Paso azul del objeto a la clase (=>)
     - Paso rojo de clase hijo a clase padre (->)
 
 
+![Metamodelo en Ruby](MetamodeloRuby.png)
 
-### Copiar foto del video de como es el Metamodelo
 
-- 1 paso negra y N paso rojos (Caso de Ruby) 
+- 1 paso negra y N paso rojos (Caso de Ruby)
     - Paso azul del objeto a la clase (=>) ==> azul == negra + roja
     - Paso rojo de clase hijo a clase padre (->)
-    - Paso negro de clase hermano (..>) 
+    - Paso negro de clase hermano (..>)
     - En este caso ya que se debe cortar la recursividad se agrega nill(objeto) que hereda de NilClass y nillClas herea de Objetos 
         - En este caso no es corta la recursividad 
         nill => NillClass -> Object -> BasicObjet -> nill => NillObjet(Ahi corta la recusrsividad)
@@ -125,7 +127,7 @@ Siguiendo el ejemplo de Guerreros, el árbol quedaría de esta manera:
         - Esto tambien pasa con sus objetos "a" : a ..> #a -> a || a => a
 
 Notas:
- - SI quiere hacer que todas las clases tengan un metodo es tan simple como poner en eobjet por ejemplo quiero que pongamos `toString()` que la implemento dentro de objet y ya TODAS las clases creadas van a tener ese metodo
+ - SI quiere hacer que todas las clases tengan un metodo es tan simple como poner en object por ejemplo quiero que pongamos `toString()` que la implemento dentro de objet y ya TODAS las clases creadas van a tener ese metodo
  - No tiene recursividad infinita ya que lo unico que puede ser infinito lo arregla con lazy
  - Si quiero hacer que poner un metodo que solo lo tenga una clase se agrega en en su #class 
 
